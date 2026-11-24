@@ -10,6 +10,10 @@ interface Props {
 
 const { bgClass = 'bg-dark' } = Astro.props;
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+
 type Link = {
 	href: string;
 	label: string;
@@ -25,44 +29,31 @@ const groups: LinkGroup[] = [
 		title: 'Resources',
 		links: [
 			{
-				label: 'Docs',
-				href: 'https://docs.astro.build/en/getting-started/',
+				label : 'CLI',
+				href: `${base}cli`
 			},
-			{ label: 'Themes', href: '/themes/' },
-			{ label: 'Integrations', href: '/integrations/' },
-			{ label: 'Playground', href: 'https://play.astro.build/' },
-			{ label: 'Site showcase', href: '/showcase/' },
-			{ label: 'Starter templates', href: 'https://astro.new/' },
-		],
-	},
-	{
-		title: 'About',
-		links: [
-			{ label: 'Blog', href: '/blog/' },
-			{ label: 'Case studies', href: '/case-studies/' },
-			{ label: 'Partner with us', href: '/partnerships/' },
-			{ label: 'Press', href: '/press/' },
-			{ label: 'Agencies', href: '/agencies/' },
-		],
-	},
-	{
-		title: 'Community',
-		links: [
 			{
-				label: 'Contributing',
-				href: 'https://github.com/withastro/astro/blob/main/CONTRIBUTING.md',
+				label: 'Documentation',
+				href: `${base}docs/`,
 			},
-			{ label: 'Sponsors', href: 'https://opencollective.com/astrodotbuild' },
-			{ label: 'Wallpapers', href: '/wallpapers/' },
-			{ label: 'Swag Shop', href: 'https://shop.astro.build' },
+			{ label: 'Guides', href: `${base}docs/getting-started/` },
+		
 		],
 	},
+	{
+		title: 'Learning',
+		links: [
+			{ label: 'Blog', href: `${base}blog/` },
+			{ label: 'Releases', href: `${base}releases/` },
+			{ label: 'Docs', href: `${base}docs/` },
+		],
+	},
+
 	{
 		title: 'Legal',
 		links: [
-			{ label: 'Telemetry', href: '/telemetry/' },
-			{ label: 'Privacy Policy', href: '/privacy/' },
-			{ label: 'Terms of Service', href: '/terms/' },
+			{ label: 'Contributor License Agreement', href: `${base}telemetry/` },
+			{ label: 'Logos', href: `${base}logos/` }
 		],
 	},
 ];
@@ -74,13 +65,11 @@ const socialLinks = siteInfo.socialLinks;
 	<div class="w-full max-w-screen-2xl mx-auto px-4 sm:px-8">
 		<nav
 			aria-label="Secondary"
-			class="flex flex-col lg:flex-row justify-between gap-20 py-8 md:py-12"
+			class="flex justify-center py-8 md:py-12"
 		>
-			<NewsLetterSignup />
-
-			<div class="gap-12 sm:gap-16 lg:gap-20 flex flex-wrap xl:grid xl:grid-cols-4">
+			<div class="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-12 justify-items-center text-center sm:text-left">
 				{groups.map(({ title, links }, index) => (
-					<section class="group flex flex-col basis-32">
+					<section class="group flex flex-col">
 						<h2
 							id={`footerHeading${index}`}
 							class="mb-4 label-base leading-none text-white font-semibold"
@@ -90,7 +79,7 @@ const socialLinks = siteInfo.socialLinks;
 						<ul aria-labelledby={`footerHeading${index}`} class="flex flex-col gap-2">
 							{links.map(({ href, label }) => (
 								<li>
-									<a href={href} class="whitespace-nowrap link flex gap-2 items-center">
+									<a href={href} class="whitespace-nowrap link flex justify-center sm:justify-start gap-2 items-center">
 										{label}
 									</a>
 								</li>
@@ -106,16 +95,21 @@ const socialLinks = siteInfo.socialLinks;
 			class="py-8 flex flex-col-reverse lg:flex-row items-center justify-between gap-4"
 		>
 			<div class="flex items-center gap-2 text-sm md:gap-4 md:text-base flex-wrap justify-center">
-				<Icon name="logos/astro" size="20" aria-hidden="true" />
-				<a target="_blank" class="link" href="https://github.com/withastro/astro/blob/main/LICENSE">
-					MIT License &copy; {new Date().getFullYear()}&nbsp;
+				<a
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link"
+					href="https://github.com/preonus-projects/preonus-web/blob/main/LICENSE"
+				>
+					Apache 2.0 License © {new Date().getFullYear()} 
 				</a>
 				<a
 					class="link"
 					target="_blank"
-					href="https://github.com/withastro/astro/graphs/contributors"
+					rel="noopener noreferrer"
+					href="https://github.com/preonus-projects/preonus-web/graphs/contributors"
 				>
-					Astro Contributors
+					Preonus Contributors
 				</a>
 			</div>
 			<SocialLinks links={socialLinks} />

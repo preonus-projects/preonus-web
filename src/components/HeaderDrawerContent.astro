@@ -3,47 +3,22 @@ import { Icon } from 'astro-icon/components';
 import siteInfo from '~/data/site-info.js';
 import SocialLinks from './SocialLinks.astro';
 
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+
 const nav: Nav = [
-	{ href: '/blog/', label: 'Blog', prefetch: true },
+	{ href: `${base}docs/`, label: 'Documentation', prefetch: true },
 	{
-		label: 'Resources',
+		label: 'Guides',
 		items: [
-			{ href: '/themes/', label: 'Themes', icon: 'palette', prefetch: true },
-			{ href: '/integrations/', label: 'Integrations', icon: 'layers', prefetch: true },
-			{ href: '/showcase/', label: 'Site showcase', icon: 'browser-windows', prefetch: true },
-			{ href: 'https://play.astro.build', label: 'Playground', icon: 'plug' },
-			{
-				href: 'https://docs.astro.build/en/tutorial/0-introduction/',
-				label: 'Tutorials',
-				icon: 'open-book',
-			},
+			{ href: `${base}docs/getting-started/`, label: 'Quickstart', icon: 'open-book', prefetch: true },
+			{ href: `${base}docs/architecture/`, label: 'Build-Time DI', icon: 'layers', prefetch: true },
+			{ href: `${base}docs/graalvm/`, label: 'GraalVM Native Image', icon: 'plug', prefetch: true },
 		],
 	},
-	{
-		label: 'Community',
-		items: [
-			{ href: '/chat/', label: 'Discord', icon: 'social/discord' },
-			{
-				href: 'https://opencollective.com/astrodotbuild',
-				label: 'Sponsors',
-				icon: 'heart',
-			},
-			{ href: 'https://shop.astro.build/', label: 'Merch', icon: 'shopping-bag' },
-		],
-	},
-	{
-		label: 'Enterprise',
-		items: [
-			{
-				href: '/agencies/',
-				label: 'Agencies',
-				icon: 'bag-briefcase',
-				badge: 'New',
-				prefetch: true,
-			},
-			{ href: '/case-studies/', label: 'Case studies', icon: 'file-alt', prefetch: true },
-		],
-	},
+	{ href: `${base}blog/`, label: 'Blog', prefetch: true },
+	{ href: `${base}releases/`, label: 'Releases', prefetch: true },
 ];
 
 interface Link {
@@ -108,8 +83,8 @@ type Nav = Array<Link | Group>;
 
 	<div class="flex flex-wrap justify-between gap-12 gap-y-6">
 		<SocialLinks links={siteInfo.socialLinks} />
-		<a href="https://docs.astro.build/" class="button button-primary flex-grow sm:max-w-sm">
-			Read the docs
+		<a href={`${base}docs/`} class="button button-primary flex-grow sm:max-w-sm">
+			Documentation
 		</a>
 	</div>
 </nav>

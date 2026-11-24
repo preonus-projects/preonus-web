@@ -1,13 +1,13 @@
 export type SocialLink = {
-	/** Longer descriptive label, e.g. `"Join the Astro community on Discord"` */
+	/** Longer descriptive label, e.g. `"Go to Preonus' GitHub repo"` */
 	text: string;
-	/** Short label with the name of the platform, e.g. `"Discord"`*/
+	/** Short label with the name of the platform, e.g. `"GitHub"` */
 	label: string;
-	/** Icon name for use with `astro-icon`, e.g. `"social/discord"`. */
+	/** Icon name for use with `astro-icon`, e.g. `"social/github"`. */
 	icon: string;
 	/** URL for our profile on the external platform. */
 	href: string;
-	/** Platform ID, e.g. `"discord"`. Used for `astro.build/on/PLATFORM` redirects. */
+	/** Platform ID, e.g. `"github"`. */
 	platform: string;
 	/** Whether this platform should be linked in the site header */
 	showInHeader?: boolean;
@@ -25,71 +25,30 @@ type SiteInfo = {
 };
 
 const siteInfo: SiteInfo = {
-	name: 'Astro',
-	title: 'Build the web you want',
+	name: 'Preonus',
+	title: 'The Build-Time DI Framework',
 	description:
-		'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
+		'Preonus is the build-time dependency injection framework for instant-startup Java applications and GraalVM native images.',
 	image: {
 		src: '/og/social.jpg',
-		alt: 'Build the web you want',
+		alt: 'Preonus - Build-time Dependency Injection Framework',
 	},
 	socialLinks: [
-		{
-			platform: 'bluesky',
-			icon: 'social/bluesky',
-			label: 'Bluesky',
-			text: 'Follow Astro on Bluesky',
-			href: 'https://bsky.app/profile/astro.build',
-		},
-		{
-			platform: 'discord',
-			href: '/chat',
-			icon: 'social/discord',
-			label: 'Discord',
-			text: 'Join the Astro community on Discord',
-		},
 		{
 			platform: 'github',
 			icon: 'social/github',
 			label: 'GitHub',
-			text: "Go to Astro's GitHub repo",
-			href: 'https://github.com/withastro/astro',
+			text: "Go to Preonus' GitHub repo",
+			href: 'https://github.com/preonus-projects/preonus-web',
 			showInHeader: true,
 		},
 		{
 			platform: 'linkedin',
 			icon: 'social/linkedin',
 			label: 'LinkedIn',
-			text: 'Follow Astro on LinkedIn',
-			href: 'https://www.linkedin.com/company/withastro',
-		},
-		{
-			platform: 'mastodon',
-			icon: 'social/mastodon',
-			label: 'Mastodon',
-			text: 'Follow Astro on Mastodon',
-			href: 'https://m.webtoo.ls/@astro',
-		},
-		{
-			platform: 'reddit',
-			icon: 'social/reddit',
-			label: 'Reddit',
-			text: 'Join the official Astro community on Reddit',
-			href: 'https://www.reddit.com/r/withastro/',
-		},
-		{
-			platform: 'twitter',
-			icon: 'social/twitter',
-			href: 'https://x.com/astrodotbuild',
-			label: 'X.com',
-			text: 'Follow Astro on x.com (formerly Twitter)',
-		},
-		{
-			platform: 'youtube',
-			icon: 'social/youtube',
-			href: 'https://www.youtube.com/@astrodotbuild',
-			label: 'YouTube',
-			text: 'Follow Astro on YouTube',
+			text: 'Follow Preonus on LinkedIn',
+			href: 'https://www.linkedin.com/company/preonus',
+			showInHeader: true,
 		},
 	],
 };
