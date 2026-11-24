@@ -12,6 +12,7 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://preonus-projects.github.io',
+    base: '/preonus-web',
     output: 'static',
     prefetch: true,
     integrations: [
