@@ -6,36 +6,32 @@ import IntroPoint from '../IntroPoint.astro';
 <section class="mt-20 sm:mt-36 xs:p-6 mx-auto w-full max-w-screen-xl space-y-8 p-4 sm:p-8">
 	<div class="space-y-1">
 		<span class="bg-clip-text text-transparent bg-red-pink-gradient font-semibold">
-			What is Astro?
+			What is Preonus?
 		</span>
 		<h2 class="max-w-screen-lg text-balance text-2xl font-light font-heading md:text-3xl xl:text-4xl md:leading-tight">
-			<strong>Astro</strong> is a JavaScript web framework optimized for building fast,
-			content-driven websites.
+			Preonus is a modern JVM framework engineered for build-time dependency injection, instant startup, and cloud-native performance.
 		</h2>
 	</div>
 
 	<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-3">
-		<IntroPoint title="Server-First">
+		<IntroPoint title="Compile-Time First">
 			<GemIcon slot="icon" icon="ri/server-line" gradient="blue-green" />
 			<Fragment slot="description">
-				Astro improves website performance by rendering components on the server, sending
-				lightweight HTML to the browser with zero unnecessary JavaScript overhead.
+				Preonus shifts dependency wiring and metadata generation from runtime to build time—eliminating classpath scanning, reflection overhead, and cold-start bottlenecks before your application ever boots.
 			</Fragment>
 		</IntroPoint>
 
-		<IntroPoint title="Content-Driven">
+		<IntroPoint title="Native-Ready">
 			<GemIcon slot="icon" icon="ri/file-list-3-line" gradient="red-pink" />
 			<Fragment slot="description">
-				Astro was designed to work with your content, no matter where it lives. Load data from your
-				file system, external API, or your favorite CMS.
+				Built from the ground up for Ahead-of-Time (AOT) compilation and GraalVM Native Image, delivering sub-second startup times and minimal memory footprints across containers and serverless workloads.
 			</Fragment>
 		</IntroPoint>
 
-		<IntroPoint title="Customizable" gradient="bg-orange-yellow-gradient">
+		<IntroPoint title="Modular by Design" gradient="bg-orange-yellow-gradient">
 			<GemIcon slot="icon" icon="ri/dashboard-line" gradient="orange-yellow" />
 			<Fragment slot="description">
-				Extend Astro with your favorite tools. Bring your own JavaScript UI components, CSS
-				libraries, themes, integrations, and more.
+				Grounded in Jakarta CDI Lite standards with clean, extensible APIs—integrate your preferred persistence, messaging, and HTTP libraries without heavyweight framework lock-in.
 			</Fragment>
 		</IntroPoint>
 	</div>
