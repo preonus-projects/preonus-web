@@ -11,7 +11,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://preonus-projects.github.io',
+    site: 'https://preonus.netlify.app',
     output: 'static',
     prefetch: true,
     integrations: [

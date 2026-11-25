@@ -14,7 +14,7 @@ export type Props = {
 	pageType?: 'website' | 'article';
 };
 
-const twitterHandle = 'astrodotbuild';
+const twitterHandle = undefined;
 
 const {
 	rawTitle,
@@ -43,9 +43,16 @@ const resolvedImage = {
 
 <!-- Low Priority Global Metadata -->
 <Favicon />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="mask-icon" href="/favicon.svg" color="#8D46E7" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
+<link
+	rel="alternate"
+	type="text/plain"
+	href="/.well-known/ai-instructions.txt"
+	title="Preonus AI Instructions and Architecture Context"
+/>
 
 <SEO
 	name={siteInfo.name}
