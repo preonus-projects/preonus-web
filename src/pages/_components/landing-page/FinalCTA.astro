@@ -27,16 +27,16 @@ import bg from './_assets/final-cta.webp';
 		*/}
 		<div class="landing-section h-full min-h-[24rem] gap-8 lg:gap-12 p-8 md:p-20 xl:min-h-[44rem] lg:p-40">
 			<h2 class="text-balance text-xl md:text-2xl xl:text-4xl font-heading font-bold">
-				Start building with <br /> Astro today
+				Start building with <br /> Preonus today
 			</h2>
 
 			<div class="grid grid-rows-2 gap-2">
-				<Link href="https://docs.astro.build/" class="primary w-full h-fit">
+				<Link href={`${import.meta.env.BASE_URL}docs/`} class="primary w-full h-fit">
 					<span class="bg-clip-text text-transparent bg-blue-purple-gradient group-hover:text-astro-blue transition-all ease-in-out duration-500">
 						Get Started
 					</span>
 				</Link>
-				<CodeBlock>npm create astro@latest</CodeBlock>
+				<CodeBlock>sdk install preonus</CodeBlock>
 			</div>
 		</div>
 	</div>

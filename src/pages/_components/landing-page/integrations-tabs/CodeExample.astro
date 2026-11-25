@@ -1,26 +1,48 @@
 ---
 import { Code } from 'astro-expressive-code/components';
+
+const javaCode = `@Controller("/hello")
+public class GreetingController {
+
+    private final GreetingService service;
+
+    @Inject
+    public GreetingController(GreetingService service) {
+        this.service = service;
+    }
+
+    @Get("/{name}")
+    public String greet(String name) {
+        return service.greet(name);
+    }
+}`;
+
+const kotlinCode = `@Controller("/hello")
+class GreetingController(
+    private val service: GreetingService
+) {
+    @Get("/{name}")
+    fun greet(name: String): String =
+        service.greet(name)
+}`;
 ---
 
 <div class="bg-[#07040F] p-1 rounded-[20px]">
-	<div class="w-full h-80 xl:h-96 min-h-80 code">
-		<Code
-			lang="astro"
-			meta="{2, 12}"
-			code={`---
-import BuyButton from '../components/BuyButton.jsx';
-import { getProductDetails } from "ecommerce-package";
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-
-const product = await getProductDetails(Astro.params.slug);
----
-
-<ProductPageLayout>
-	<img src={product.imageUrl} alt={product.imageAlt} />
-	<h2>{product.name}</h2>
-	<BuyButton id={product.id} client:load />
-</ProductPageLayout>`}
-		/>
+	<div class="w-full h-80 xl:h-96 min-h-80 code relative">
+		<div id="code-panel-java" class="size-full">
+			<Code
+				lang="java"
+				title="GreetingController.java"
+				code={javaCode}
+			/>
+		</div>
+		<div id="code-panel-kotlin" class="size-full hidden">
+			<Code
+				lang="kotlin"
+				title="GreetingController.kt"
+				code={kotlinCode}
+			/>
+		</div>
 	</div>
 </div>
 

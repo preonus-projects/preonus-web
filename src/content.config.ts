@@ -1,8 +1,8 @@
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { docsLoader } from '@astrojs/starlight/loaders';
-import { docsSchema } from '@astrojs/starlight/schema';
+import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
+import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 import authors from './data/authors/authors.json';
 import { IntegrationCategories } from './data/integration-categories.js';
 
@@ -28,6 +28,10 @@ export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
 		schema: docsSchema(),
+	}),
+	i18n: defineCollection({
+		loader: i18nLoader(),
+		schema: i18nSchema(),
 	}),
 	authors: defineCollection({
 		loader: file('src/data/authors/authors.json'),
@@ -165,54 +169,6 @@ export const collections = {
 			published: z.date(),
 		}),
 	}),
-	showcase: defineCollection({
-		loader: glob({
-			base: './src/content/showcase',
-			pattern: '*.yml',
-			// Showcase filenames are based on the site URL, and we don’t want Astro to strip out periods,
-			// so we just remove the file extension and otherwise do nothing.
-			generateId: ({ entry }) => entry.split('.').slice(0, -1).join('.'),
-		}),
-		schema: ({ image }) =>
-			z.object({
-				title: z
-					.string()
-					.min(1)
-					.refine((value) => value !== 'Just a moment...', {
-						error:
-							"A showcase entry's title cannot be 'Just a moment...' which usually indicates a loading error.\nMake sure to update the title manually.\n",
-					})
-					.refine((value) => value !== 'Vercel Security Checkpoint', {
-						error:
-							"A showcase entry's title cannot be 'Vercel Security Checkpoint' which usually indicates a loading error.\nMake sure to update the title manually.\n",
-					})
-					.refine((value) => value !== 'Checking your browser before accessing. Just a moment...', {
-						error:
-							"A showcase entry's title cannot be 'Checking your browser before accessing. Just a moment...' which usually indicates a loading error.\nMake sure to update the title manually.\n",
-					}),
-				image: image(),
-				url: z.url(),
-				featured: z.number().min(1).optional(),
-				highlight: z.boolean().default(false),
-				dateAdded: z.date(),
-				categories: z
-					.enum([
-						'starlight',
-						'personal',
-						'tech',
-						'marketing',
-						'entertainment',
-						'landing',
-						'blog',
-						'portfolio',
-						'docs',
-						'e-commerce',
-						'other',
-					])
-					.array()
-					.default([]),
-			}),
-	}),
 	agencies: defineCollection({
 		loader: glob({ base: './src/content/agencies', pattern: '**/*.md' }),
 		schema: ({ image }) =>
@@ -240,18 +196,6 @@ export const collections = {
 						src: image(),
 					})
 					.optional(),
-			}),
-	}),
-	/** This collection is for use in “What’s New” blog posts only. Theme catalogue pages should use the dev portal API. */
-	themesForBlogPosts: defineCollection({
-		loader: file('./src/content/themes/themes.json'),
-		schema: ({ image }) =>
-			z.object({
-				slug: z.string(),
-				title: z.string(),
-				image: image(),
-				author: z.string(),
-				publishDate: z.coerce.date(),
 			}),
 	}),
 };

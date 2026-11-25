@@ -1,53 +1,103 @@
 ---
 import SectionCopy from '../SectionCopy.astro';
 import GreenishStardust from './GreenishStardust.astro';
-import IslandGraphic from './IslandGraphic.astro';
 ---
 
 <section class="mt-20 md:mt-24 lg:mt-28 xl:mt-36 relative w-full max-w-screen-xl mx-auto px-4 sm:px-8">
 	<SectionCopy
-		label="Best-In-Class Performance"
-		title="Astro Islands"
-		description="Islands optimize your website like no other web framework can. Leverage Astro's unique page load performance to improve conversion rates, Core Web Vitals, and SEO."
+		label="Runtime Efficiency"
+		title="Instant Cold Starts"
+		description="Preonus eliminates runtime classpath scanning and reflection through compile-time bytecode generation—delivering sub-second startup across Native Image, AOT-cached, and standard JVM deployments."
 	/>
 
 	<GreenishStardust height="h-56 md:h-80 lg:h-96" />
 
 	<div class="mt-8 p-4 sm:p-8 bg-astro-dark-800 border border-astro-dark-100/20 rounded-xl sm:rounded-2xl">
-		<p class="text-astro-gray-300">% of real-world sites with good Core Web Vitals</p>
+		<p class="text-astro-gray-300">Startup time to first HTTP response (lower is better)</p>
 
-		<div class="mt-8 mb-5">
-			<IslandGraphic label="Astro" score="71" size="size-[22px]" icon="logos/astro" glow />
-			<IslandGraphic label="WordPress" score="48" icon="logos/wordpress" />
-			<IslandGraphic label="Gatsby" score="45" size="size-[19px]" icon="logos/gatsby" />
-			<IslandGraphic label="Next.js" score="35" icon="logos/next-js" />
-			<IslandGraphic label="Nuxt" score="28" size="size-6" icon="logos/nuxt" />
+		<div class="mt-8 mb-5 space-y-4">
+			{/* Native Image: 8 ms */}
+			<div
+				data-glow="true"
+				class="w-full group whitespace-nowrap flex flex-col lg:flex-row lg:items-center justify-start gap-4"
+			>
+				<p class="lg:w-2/12 xl:w-1/12 min-w-36 hidden lg:block text-xl lg:text-end heading-3 font-bold">
+					Native Image
+				</p>
+
+				<div class="h-8 sm:h-10 w-full flex items-center gap-2 outline outline-offset-2 sm:outline-offset-4 outline-1 outline-astro-gray-500 group-data-[glow]:outline-astro-gray-400 rounded-lg">
+					<div
+						style={{ width: '12%' }}
+						class="px-2 h-full min-w-10 flex items-center justify-center gap-2 bg-blue-green-gradient rounded-lg text-white"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+						</svg>
+					</div>
+					<p class="sr-only">Native Image Startup Time</p>
+					<p class="text-lg sm:text-xl text-2xl sm:text-3xl font-semibold text-astro-green">
+						8 ms
+					</p>
+				</div>
+			</div>
+
+			{/* JVM + AOT: 70 ms */}
+			<div
+				class="w-full group whitespace-nowrap flex flex-col lg:flex-row lg:items-center justify-start gap-4"
+			>
+				<p class="lg:w-2/12 xl:w-1/12 min-w-36 hidden lg:block text-xl lg:text-end heading-3 font-bold">
+					JVM + AOT
+				</p>
+
+				<div class="h-8 sm:h-10 w-full flex items-center gap-2 outline outline-offset-2 sm:outline-offset-4 outline-1 outline-astro-gray-500 rounded-lg">
+					<div
+						style={{ width: '44%' }}
+						class="px-2 h-full min-w-10 flex items-center justify-center gap-2 bg-astro-gray-500 rounded-lg text-astro-gray-100"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<rect x="4" y="4" width="16" height="16" rx="2" />
+							<rect x="9" y="9" width="6" height="6" />
+							<path d="M9 1v3" />
+							<path d="M15 1v3" />
+							<path d="M9 20v3" />
+							<path d="M15 20v3" />
+							<path d="M20 9h3" />
+							<path d="M20 14h3" />
+							<path d="M1 9h3" />
+							<path d="M1 14h3" />
+						</svg>
+					</div>
+					<p class="sr-only">JVM + AOT Startup Time</p>
+					<p class="text-lg sm:text-xl font-semibold text-astro-gray-300">
+						70 ms
+					</p>
+				</div>
+			</div>
+
+			{/* Standard JVM: 160 ms */}
+			<div
+				class="w-full group whitespace-nowrap flex flex-col lg:flex-row lg:items-center justify-start gap-4"
+			>
+				<p class="lg:w-2/12 xl:w-1/12 min-w-36 hidden lg:block text-xl lg:text-end heading-3 font-bold">
+					Standard JVM
+				</p>
+
+				<div class="h-8 sm:h-10 w-full flex items-center gap-2 outline outline-offset-2 sm:outline-offset-4 outline-1 outline-astro-gray-500 rounded-lg">
+					<div
+						style={{ width: '88%' }}
+						class="px-2 h-full min-w-10 flex items-center justify-center gap-2 bg-astro-gray-500 rounded-lg text-astro-gray-100"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<polyline points="4 17 10 11 4 5" />
+							<line x1="12" y1="19" x2="20" y2="19" />
+						</svg>
+					</div>
+					<p class="sr-only">Standard JVM Startup Time</p>
+					<p class="text-lg sm:text-xl font-semibold text-astro-gray-300">
+						160 ms
+					</p>
+				</div>
+			</div>
 		</div>
-
-		<p class="text-astro-gray-300 text-balance">
-			<a
-				class="text-astro-gray-100 underline underline-offset-2 decoration-astro-gray-300 hover:decoration-white transition-colors durartion-500 ease-out"
-				href="https://httparchive.org/reports/techreport/tech?client=mobile&tech=Astro,WordPress,Gatsby,Next.js,Nuxt.js&geo=ALL&rank=ALL&page=1"
-			>
-				View the full dataset
-			</a>{' '}
-			&middot; Based on real-world performance data from{' '}
-			<a
-				class="text-astro-gray-100 underline underline-offset-2 decoration-astro-gray-300 hover:decoration-white transition-colors durartion-500 ease-out"
-				href="https://httparchive.org/"
-				target="_blank"
-			>
-				HTTP Archive
-			</a>{' '}
-			and the{' '}
-			<a
-				class="text-astro-gray-100 underline underline-offset-2 decoration-astro-gray-300 hover:decoration-white transition-colors durartion-500 ease-out"
-				href="https://developer.chrome.com/docs/crux"
-				target="_blank"
-			>
-				Chrome UX Report
-			</a>
-			.
-		</p>
 	</div>
 </section>
