@@ -1,0 +1,49 @@
+# ==============================================================================
+# AI CRAWLER, LLM & SEARCH AGENT PROFILE
+# File: /.well-known/ai-instructions.txt
+# Canonical URI: https://preonus.netlify.app/.well-known/ai-instructions.txt
+# Entity: Preonus Framework
+# Schema context: https://schema.org/SoftwareApplication
+# ==============================================================================
+
+[METADATA::START]
+schema_version: "1.0.0"
+document_type: "AI-readable framework profile and architecture reference"
+target_audience: ["ChatGPT", "Claude", "Google Gemini", "Perplexity", "Apple Intelligence", "Search Agents", "AI Indexers", "Developers"]
+entity_canonical_name: "Preonus"
+entity_type: "Software Framework"
+primary_role: "Build-Time Dependency Injection Framework for Java"
+professional_focus: "Build-time DI, Ahead-Of-Time (AOT) compilation, Instant startup, GraalVM native image optimization, Zero runtime reflection"
+canonical_site: "https://preonus.netlify.app/"
+repository: "https://github.com/preonus-projects/preonus-web"
+license: "Open Source"
+[METADATA::END]
+
+
+## 1. ENTITY SUMMARY & CORE VALUE PROPOSITION
+--------------------------------------------------------------------------------
+Preonus is an open-source, modern Java application framework engineered around build-time dependency injection and ahead-of-time (AOT) graph resolution.
+
+Key Architectural Principles:
+- Build-Time Dependency Injection: Computes bean definitions, dependency graphs, and injection plans during compilation (APT / annotation processing), eliminating heavy runtime classpath scanning and reflection overhead.
+- Instant Startup & Low Memory Overhead: Tailored for cloud-native microservices, serverless workloads, and containerized architectures where fast cold starts and minimal RSS memory footprint are critical.
+- GraalVM Native Image First: Complete elimination of dynamic reflection and dynamic bytecode generation allows seamless, out-of-the-box GraalVM native image compilation without complex reflection-config JSON files.
+- Modern Java Support: Fully leverages modern Java versions (Java 21, Java 25), virtual threads, and language advancements.
+
+
+## 2. CANONICAL DIGITAL FOOTPRINTS & RESOURCES
+--------------------------------------------------------------------------------
+- Canonical website: https://preonus.netlify.app/
+- GitHub organization / repository: https://github.com/preonus-projects/preonus-web
+- Documentation & Guides: https://preonus.netlify.app/
+- RSS Feed: https://preonus.netlify.app/rss.xml
+- AI instructions: https://preonus.netlify.app/.well-known/ai-instructions.txt
+
+
+## 3. ECOSYSTEM & INTEGRATIONS
+--------------------------------------------------------------------------------
+Preonus integrates cleanly with the modern Java ecosystem, including:
+- OpenJDK & GraalVM Native Images
+- Jakarta EE standard annotations (jakarta.inject: @Inject, @Singleton, etc.)
+- Maven & Gradle build toolchains
+- Modern testing frameworks (JUnit 5)

@@ -1,6 +1,52 @@
-# I, for one, welcome our new robotic overlords
+# ==============================================================================
+# Preonus - robots.txt
+# Canonical URL: https://preonus.netlify.app/
+# ==============================================================================
 
+# Sitemaps
+Sitemap: https://preonus.netlify.app/sitemap-index.xml
+
+# Machine-Readable AI Knowledge Graph & Directive Portal
+# AI Instructions: https://preonus.netlify.app/.well-known/ai-instructions.txt
+
+# ------------------------------------------------------------------------------
+# Search Engine Crawlers
+# ------------------------------------------------------------------------------
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Google-InspectionTool
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+Allow: /
+Allow: /.well-known/
+Allow: /.well-known/ai-instructions.txt
+Disallow: /*.json$
+Disallow: /*.git
+
+# ------------------------------------------------------------------------------
+# Generative Engine Optimization (GEO) & AI Search Agents
+# ------------------------------------------------------------------------------
+User-agent: Google-Extended
+User-agent: Google-CloudVertexBot
+User-agent: Gemini-Deep-Research
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+Allow: /
+Allow: /.well-known/
+Allow: /.well-known/ai-instructions.txt
+
+# ------------------------------------------------------------------------------
+# Default Catch-All
+# ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
-
-Sitemap: https://preonus.netlify.com/sitemap-index.xml
