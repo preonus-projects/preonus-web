@@ -45,7 +45,15 @@ export default defineConfig({
         }),
         mdx({ optimize: true }),
         sitemap(),
-        starlight({ title: 'Preonus', disable404Route: true }),
+        starlight({
+            title: 'Preonus',
+            logo: {
+                dark: './src/assets/preonus-white-full.svg',
+                light: './src/assets/preonus-black-full.svg',
+                replacesTitle: true,
+            },
+            disable404Route: true,
+        }),
     ],
     image: {
         domains: ['v1.screenshot.11ty.dev', 'storage.googleapis.com', 'avatars.githubusercontent.com'],
