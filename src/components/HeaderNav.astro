@@ -1,38 +1,42 @@
 ---
-import siteInfo from '~/data/site-info.js';
 import AstroLogo from './AstroLogo.astro';
-import HeaderDropDown from './HeaderDropDown.astro';
-import SocialLinks from './SocialLinks.astro';
+import SiteSearch from './SiteSearch.astro';
 
-const socialLinks = siteInfo.socialLinks.filter((link) => link.showInHeader);
 const base = import.meta.env.BASE_URL.endsWith('/')
 	? import.meta.env.BASE_URL
 	: `${import.meta.env.BASE_URL}/`;
 ---
 
-<nav class="w-full flex items-center justify-between">
-	<a href={base} data-astro-prefetch title="Preonus Home" data-home-link>
-		<span class="sr-only">Preonus Logo</span>
-		<AstroLogo aria-hidden="true" />
-	</a>
-
-	<div class="hidden shrink flex-row items-center gap-10 lg:flex text-base">
-		<a href={`${base}docs/`} data-astro-prefetch class="link">
-			Documentation
-		</a>
-		<a href={`${base}guide/`} data-astro-prefetch class="link">
-			Guide
-		</a>
-		<a href={`${base}blog/`} data-astro-prefetch class="link">
-			Blog
-		</a>
-		<a href={`${base}releases/`} data-astro-prefetch class="link">
-			Releases
+<nav class="w-full flex items-center justify-between gap-6">
+	<div class="flex items-center gap-10">
+		<a
+			href={base}
+			data-astro-prefetch
+			title="Preonus Home"
+			data-home-link
+			class="inline-flex items-center leading-none shrink-0"
+		>
+			<span class="sr-only">Preonus Logo</span>
+			<AstroLogo aria-hidden="true" />
 		</a>
 
+		<div class="hidden shrink flex-row items-center gap-8 lg:flex text-base leading-none">
+			<a href={`${base}docs/`} data-astro-prefetch class="link">
+				Documentation
+			</a>
+			<a href={`${base}guide/`} data-astro-prefetch class="link">
+				Guide
+			</a>
+			<a href={`${base}blog/`} data-astro-prefetch class="link">
+				Blog
+			</a>
+			<a href={`${base}releases/`} data-astro-prefetch class="link">
+				Releases
+			</a>
+		</div>
 	</div>
 
-	<div class="hidden gap-4 lg:flex">
-		<SocialLinks links={socialLinks} />
+	<div class="flex items-center shrink-0">
+		<SiteSearch />
 	</div>
 </nav>

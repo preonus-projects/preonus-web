@@ -32,8 +32,9 @@ const { bgClass = 'bg-black', ...head } = Astro.props;
 		<div
 			id="nav"
 			class:list={{
-				'inset-x-0 top-0 z-20 max-h-screen': true,
-				'bg-black/30': true,
+				'sticky inset-x-0 top-0 z-30 max-h-screen': true,
+				'bg-black/30 backdrop-blur-md': bgClass === 'bg-astro-dark-900',
+				'bg-black': bgClass !== 'bg-astro-dark-900',
 			}}
 		>
 			<Header>
