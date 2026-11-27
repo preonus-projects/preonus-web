@@ -16,35 +16,38 @@ import { releasesData } from '~/data/releases.js';
 	</div>
 
 	<div class="w-full max-w-screen-xl mx-auto px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-		<!-- 2 Releases side-by-side matching blog card design -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-			{releasesData.map((release) => (
-				<article
-					class="relative border border-astro-gray-500 bg-astro-gray-600 p-6 md:p-8 outline-astro-pink-light transition-transform duration-300 ease-out focus-within:outline hover:scale-[1.03] flex flex-col justify-between"
-					aria-labelledby={release.slug}
-				>
-					<div>
-						<header class="mb-4">
-							<time class="code text-astro-gray-200">
-								{release.date}
-							</time>
-						</header>
+		{releasesData.length === 0 ? (
+			<p class="text-center text-astro-gray-300 py-8">No releases published yet.</p>
+		) : (
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+				{releasesData.map((release) => (
+					<article
+						class="relative border border-astro-gray-500 bg-astro-gray-600 p-6 md:p-8 outline-astro-pink-light transition-transform duration-300 ease-out focus-within:outline hover:scale-[1.03] flex flex-col justify-between"
+						aria-labelledby={release.slug}
+					>
+						<div>
+							<header class="mb-4">
+								<time class="code text-astro-gray-200">
+									{release.date}
+								</time>
+							</header>
 
-						<h3 class="heading-4 md:heading-3 mb-3" id={release.slug}>
-							<a
-								href={`/releases/${release.slug}/`}
-								data-astro-prefetch
-								class="outline-none after:absolute after:inset-0"
-							>
-								{release.title}
-							</a>
-						</h3>
+							<h3 class="heading-4 md:heading-3 mb-3" id={release.slug}>
+								<a
+									href={`/releases/${release.slug}/`}
+									data-astro-prefetch
+									class="outline-none after:absolute after:inset-0"
+								>
+									{release.title}
+								</a>
+							</h3>
 
-						<p class="text-astro-gray-200">{release.description}</p>
-					</div>
-				</article>
-			))}
-		</div>
+							<p class="text-astro-gray-200">{release.description}</p>
+						</div>
+					</article>
+				))}
+			</div>
+		)}
 	</div>
 </Layout>
 
