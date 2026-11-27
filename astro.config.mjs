@@ -47,11 +47,34 @@ export default defineConfig({
         sitemap(),
         starlight({
             title: 'Preonus',
+            description: 'Build-time dependency injection framework for instant-startup Java & Kotlin applications and GraalVM native images.',
             logo: {
                 dark: './src/assets/preonus-white-full.svg',
                 light: './src/assets/preonus-black-full.svg',
                 replacesTitle: true,
             },
+            customCss: ['./src/styles/fonts.css', './src/styles/starlight.css'],
+            components: {
+                Header: './src/components/starlight/Header.astro',
+                ThemeSelect: './src/components/starlight/ThemeSelect.astro',
+                ThemeProvider: './src/components/starlight/ThemeProvider.astro',
+            },
+            tableOfContents: {
+                minHeadingLevel: 2,
+                maxHeadingLevel: 3,
+            },
+            editLink: {
+                baseUrl: 'https://github.com/preonus-projects/preonus-web/edit/main/',
+            },
+            lastUpdated: true,
+            sidebar: [
+                {
+                    label: 'Overview',
+                    items: [
+                        { label: 'Welcome to Preonus', slug: 'docs' },
+                    ],
+                },
+            ],
             disable404Route: true,
         }),
     ],

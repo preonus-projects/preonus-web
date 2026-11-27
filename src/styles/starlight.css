@@ -1,0 +1,325 @@
+/* Preonus Starlight Documentation Theme
+ * Aligns Starlight docs with the Preonus Quantum Violet & Cosmic Dark identity.
+ */
+
+:root {
+	--sl-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--sl-font-mono: 'MDIO', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	--sl-content-width: 52rem;
+	--sl-sidebar-width: 17.5rem;
+	--sl-nav-height: 5rem;
+}
+
+/* Smooth anchor scrolling accounting for the 5rem sticky navbar */
+html {
+	scroll-behavior: smooth;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+	scroll-margin-top: 6.25rem;
+}
+
+/* Balanced surface hierarchy for comfortable long-form reading */
+:root,
+:root[data-theme='dark'] {
+	--sl-color-bg: #17181c;
+	--sl-color-bg-nav: #0d0f14;
+	--sl-color-bg-sidebar: #0d0f14;
+	--sl-color-bg-inline-code: rgba(167, 139, 250, 0.12);
+	--sl-color-hairline: #23262d;
+	--sl-color-hairline-light: #23262d;
+	--sl-color-hairline-shade: #23262d;
+
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eceff4;
+	--sl-color-gray-2: #c4c9d4;
+	--sl-color-gray-3: #8b92a2;
+	--sl-color-gray-4: #545864;
+	--sl-color-gray-5: #2a2e39;
+	--sl-color-gray-6: #191d26;
+	--sl-color-black: #0d0f14;
+
+	--sl-color-accent-low: rgba(109, 40, 217, 0.2);
+	--sl-color-accent: #8b5cf6;
+	--sl-color-accent-high: #ddd6fe;
+
+	--sl-color-text-accent: #a78bfa;
+	--sl-color-text-invert: #0d0f14;
+}
+
+/* Distinct calm reading canvas vs recessed navigation sidebar */
+.main-frame {
+	background-color: #17181c;
+	background-image: none;
+}
+
+.sidebar-pane {
+	background-color: #0d0f14;
+	border-inline-end: 1px solid #23262d;
+}
+
+.right-sidebar-panel {
+	background-color: #17181c;
+}
+
+/* Navbar matching main website Header.astro exactly */
+header.header {
+	padding: 0 !important;
+	margin: 0 !important;
+	background-color: #0d0f14 !important;
+	border: none !important;
+	height: 5rem !important;
+	min-height: 5rem !important;
+	max-height: 5rem !important;
+	box-sizing: border-box !important;
+}
+
+/* Hide Starlight's mobile docs-topics toggle button so mobile docs uses only the main site navbar */
+starlight-menu-button {
+	display: none !important;
+}
+
+/* Comfortable left breathing room on docs sidebar & content across screen sizes */
+@media (min-width: 50rem) {
+	.sidebar-pane {
+		padding-inline-start: 1.25rem;
+	}
+
+	.main-pane .content-panel {
+		padding-inline: 2.25rem;
+	}
+}
+
+/* Hide theme selector if rendered */
+starlight-theme-select {
+	display: none !important;
+}
+
+/* Simple, subtle gray active sidebar item with crisp accent rail */
+.sidebar-content .top-level {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.sidebar-content a {
+	border-radius: 0.375rem;
+	padding-block: 0.42rem;
+	transition: background-color 150ms ease, color 150ms ease;
+}
+
+.sidebar-content a[aria-current='page'] {
+	background-color: #1b1f29;
+	border: none;
+	border-inline-start: 2px solid #a78bfa;
+	color: #ffffff;
+	font-weight: 500;
+}
+
+.sidebar-content a:hover:not([aria-current='page']) {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Right Table of Contents active tracking */
+starlight-toc a[aria-current='true'] {
+	color: #ffffff;
+	font-weight: 500;
+	border-inline-start: 2px solid #a78bfa;
+	padding-inline-start: 0.65rem;
+}
+
+/* Group labels in sidebar */
+.sidebar-content .top-level > li > details > summary .large,
+.sidebar-content .top-level > li > a.large {
+	font-size: 0.78rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+/* Typography & headings */
+.sl-markdown-content {
+	line-height: 1.72;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3 {
+	letter-spacing: -0.02em;
+}
+
+.sl-markdown-content h2 {
+	margin-top: 2.25rem;
+	padding-bottom: 0.4rem;
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+/* Starlight Tabs polish */
+starlight-tabs .tablist-wrapper [role='tab'][aria-selected='true'] {
+	color: #ffffff;
+	border-bottom-color: #a78bfa;
+}
+
+/* Inline code styling */
+.sl-markdown-content :not(pre) > code {
+	border-radius: 0.375rem;
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	padding: 0.12em 0.38em;
+	font-size: 0.875em;
+}
+
+/* Cards & LinkCards polish */
+.sl-markdown-content .card {
+	border-radius: 0.875rem;
+	border: 1px solid #2a2e39;
+	background: #191d26;
+	transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+:root[data-theme='light'] .sl-markdown-content .card {
+	background: #ffffff;
+}
+
+.sl-markdown-content .card:hover {
+	border-color: rgba(167, 139, 250, 0.45);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 30px -12px rgba(109, 40, 217, 0.25);
+}
+
+.sl-link-card {
+	border-radius: 0.875rem !important;
+	transition: border-color 200ms ease, transform 200ms ease, background-color 200ms ease !important;
+}
+
+.sl-link-card:hover {
+	border-color: rgba(167, 139, 250, 0.5) !important;
+	transform: translateY(-2px);
+}
+
+/* Callout / Aside refinement */
+.starlight-aside {
+	border-radius: 0.75rem;
+	border-inline-start-width: 3px;
+}
+
+/* Table polish */
+.sl-markdown-content table {
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	border: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content th {
+	background: rgba(167, 139, 250, 0.08);
+	font-weight: 600;
+	text-align: left;
+}
+
+.sl-markdown-content th,
+.sl-markdown-content td {
+	padding: 0.7rem 0.95rem;
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+/* Custom Preonus docs hero banner */
+.preonus-docs-hero {
+	position: relative;
+	padding: 2rem;
+	border-radius: 1rem;
+	border: 1px solid #2a2e39;
+	background-color: #191d26;
+	margin-bottom: 2rem;
+}
+
+.preonus-docs-hero-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 9999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #ddd6fe;
+	background: rgba(109, 40, 217, 0.35);
+	border: 1px solid rgba(167, 139, 250, 0.35);
+	margin-bottom: 0.85rem;
+}
+
+:root[data-theme='light'] .preonus-docs-hero-badge {
+	color: #5b21b6;
+	background: #ede9fe;
+	border-color: rgba(109, 40, 217, 0.25);
+}
+
+.preonus-docs-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.25rem;
+}
+
+.preonus-btn-primary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.65rem 1.2rem;
+	border-radius: 9999px;
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-decoration: none !important;
+	color: #ffffff !important;
+	background: linear-gradient(83.21deg, #3245ff 0%, #8b5cf6 55%, #b845ed 100%);
+	transition: filter 150ms ease, transform 150ms ease;
+}
+
+.preonus-btn-primary:hover {
+	filter: brightness(1.1);
+	transform: translateY(-1px);
+}
+
+.preonus-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.65rem 1.2rem;
+	border-radius: 9999px;
+	font-weight: 600;
+	font-size: 0.9rem;
+	text-decoration: none !important;
+	color: var(--sl-color-white) !important;
+	border: 1px solid var(--sl-color-hairline-shade);
+	background: rgba(255, 255, 255, 0.04);
+	transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+:root[data-theme='light'] .preonus-btn-secondary {
+	color: #1e293b !important;
+	background: #ffffff;
+}
+
+.preonus-btn-secondary:hover {
+	border-color: rgba(167, 139, 250, 0.5);
+	background: rgba(167, 139, 250, 0.08);
+}
+
+/* Pagination cards */
+.pagination-links a {
+	background-color: #191d26;
+	border: 1px solid #2a2e39;
+	border-radius: 0.875rem;
+	padding: 1rem 1.25rem;
+	transition:
+		border-color 180ms ease,
+		background-color 180ms ease,
+		transform 180ms ease;
+}
+
+.pagination-links a:hover {
+	border-color: rgba(167, 139, 250, 0.45);
+	background-color: #1e232e;
+	transform: translateY(-1px);
+}

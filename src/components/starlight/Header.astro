@@ -1,0 +1,274 @@
+---
+import AstroLogo from '../AstroLogo.astro';
+import SiteSearch from '../SiteSearch.astro';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+---
+
+<div class="preonus-sl-header-shell">
+	<nav aria-label="Primary" class="preonus-sl-container">
+		<div class="preonus-sl-nav-inner">
+			<div class="preonus-sl-left">
+				<a href={base} data-astro-prefetch title="Preonus Home" class="preonus-sl-logo">
+					<span class="sr-only">Preonus Logo</span>
+					<AstroLogo aria-hidden="true" />
+				</a>
+
+				<div class="preonus-sl-links">
+					<a href={`${base}docs/`} data-astro-prefetch>Documentation</a>
+					<a href={`${base}guide/`} data-astro-prefetch>Guide</a>
+					<a href={`${base}blog/`} data-astro-prefetch>Blog</a>
+					<a href={`${base}releases/`} data-astro-prefetch>Releases</a>
+				</div>
+			</div>
+
+			<div class="preonus-sl-right">
+				<SiteSearch />
+				<button
+					type="button"
+					class="preonus-sl-hamburger"
+					aria-label="Show Menu"
+					aria-expanded="false"
+					data-preonus-sl-menu-btn
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<line x1="3" y1="6" x2="21" y2="6" />
+						<line x1="3" y1="12" x2="21" y2="12" />
+						<line x1="3" y1="18" x2="21" y2="18" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</nav>
+
+	<div class="preonus-sl-drawer" data-preonus-sl-drawer hidden>
+		<nav aria-label="Mobile Primary" class="preonus-sl-drawer-nav">
+			<a href={`${base}docs/`} data-astro-prefetch>Documentation</a>
+			<a href={`${base}guide/`} data-astro-prefetch>Guide</a>
+			<a href={`${base}blog/`} data-astro-prefetch>Blog</a>
+			<a href={`${base}releases/`} data-astro-prefetch>Releases</a>
+		</nav>
+	</div>
+</div>
+
+<script>
+	function initSlNavDrawer() {
+		const btn = document.querySelector('[data-preonus-sl-menu-btn]');
+		const drawer = document.querySelector('[data-preonus-sl-drawer]') as HTMLElement | null;
+		if (!btn || !drawer || btn.hasAttribute('data-initialized')) return;
+		btn.setAttribute('data-initialized', 'true');
+
+		btn.addEventListener('click', () => {
+			const open = drawer.hasAttribute('hidden');
+			if (open) {
+				drawer.removeAttribute('hidden');
+				btn.setAttribute('aria-expanded', 'true');
+			} else {
+				drawer.setAttribute('hidden', '');
+				btn.setAttribute('aria-expanded', 'false');
+			}
+		});
+	}
+
+	initSlNavDrawer();
+	document.addEventListener('astro:after-swap', initSlNavDrawer);
+</script>
+
+<style>
+	.preonus-sl-header-shell {
+		position: relative;
+		width: 100%;
+		height: 5rem;
+		background-color: #0d0f14;
+		display: flex;
+		align-items: center;
+		box-sizing: border-box;
+		box-shadow:
+			0 1px 3px 0 rgb(0 0 0 / 0.1),
+			0 1px 2px -1px rgb(0 0 0 / 0.1);
+	}
+
+	.preonus-sl-container {
+		box-sizing: border-box;
+		width: 100%;
+		height: 5rem;
+		max-width: 1280px;
+		margin-inline: auto;
+		padding-inline: 1rem;
+		display: flex;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.preonus-sl-container {
+			padding-inline: 2rem;
+		}
+	}
+
+	.preonus-sl-nav-inner {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		font-family:
+			ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+			'Helvetica Neue', Arial, sans-serif;
+	}
+
+	.preonus-sl-left {
+		display: flex;
+		align-items: center;
+		gap: 2.5rem;
+	}
+
+	.preonus-sl-logo {
+		display: inline-flex;
+		align-items: center;
+		line-height: 1;
+		flex-shrink: 0;
+		text-decoration: none;
+	}
+
+	.preonus-sl-logo :global(div) {
+		display: inline-flex;
+		align-items: center;
+		line-height: 1;
+	}
+
+	.preonus-sl-logo :global(svg) {
+		height: 39px;
+		width: auto;
+		display: block;
+	}
+
+	.preonus-sl-logo :global(svg:first-of-type) {
+		display: block;
+	}
+
+	.preonus-sl-logo :global(svg:last-of-type) {
+		display: none;
+	}
+
+	.preonus-sl-links {
+		display: none;
+		align-items: center;
+		gap: 2rem;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	@media (min-width: 1024px) {
+		.preonus-sl-links {
+			display: flex;
+		}
+	}
+
+	.preonus-sl-links a {
+		color: #bfc1c9;
+		font-size: 16px;
+		font-weight: 300;
+		line-height: 24px;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: color 300ms cubic-bezier(0, 0, 0.2, 1);
+	}
+
+	.preonus-sl-links a:hover {
+		color: #ffffff;
+	}
+
+	.preonus-sl-right {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		flex-shrink: 0;
+	}
+
+	.preonus-sl-hamburger {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		border: none;
+		padding: 0;
+		color: #bfc1c9;
+		cursor: pointer;
+		transition: color 200ms ease;
+	}
+
+	.preonus-sl-hamburger:hover {
+		color: #ffffff;
+	}
+
+	@media (min-width: 1024px) {
+		.preonus-sl-hamburger {
+			display: none;
+		}
+	}
+
+	.preonus-sl-drawer {
+		position: fixed;
+		top: 5rem;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #0d0f14;
+		border-top: 1px solid #343841;
+		z-index: 50;
+		overflow-y: auto;
+		transform: translateX(-1rem);
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			transform 200ms ease,
+			opacity 200ms ease;
+	}
+
+	.preonus-sl-drawer:not([hidden]) {
+		display: block;
+		transform: translateX(0);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	@media (min-width: 1024px) {
+		.preonus-sl-drawer {
+			display: none !important;
+		}
+	}
+
+	.preonus-sl-drawer-nav {
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 3rem;
+		text-align: left;
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+		font-weight: 300;
+	}
+
+	.preonus-sl-drawer-nav a {
+		padding: 1.5rem;
+		color: #bfc1c9;
+		text-decoration: none;
+		border-bottom: 1px solid #343841;
+		transition: color 300ms ease-out;
+	}
+
+	.preonus-sl-drawer-nav a:hover {
+		color: #ffffff;
+	}
+</style>
