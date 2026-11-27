@@ -1,0 +1,22 @@
+---
+import Layout from '~/layouts/MainLayout.astro';
+---
+
+<Layout
+	title="Preonus guide"
+	description="Preonus guide"
+	image={{ src: '/og/guide.jpg', alt: 'Preonus guide' }}
+>
+	<div class="lg:py-18 grid-container relative py-12 sm:py-14 md:py-16 xl:py-20">
+		<div class="bleed-full bg-grid absolute inset-0"></div>
+		<div class="relative flex flex-col items-center gap-6 text-center">
+			<h1 class="heading-3 mx-auto max-w-screen-lg sm:heading-2 lg:heading-1">Preonus guide</h1>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.bg-grid {
+		mask-image: linear-gradient(to bottom, white 0%, white 33%, transparent 90%);
+	}
+</style>

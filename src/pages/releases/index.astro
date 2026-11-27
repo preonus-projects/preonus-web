@@ -1,0 +1,55 @@
+---
+import Layout from '~/layouts/MainLayout.astro';
+import { releasesData } from '~/data/releases.js';
+---
+
+<Layout
+	title="Preonus releases"
+	description="Preonus releases"
+	image={{ src: '/og/releases.jpg', alt: 'Preonus releases' }}
+>
+	<div class="lg:py-18 grid-container relative py-12 sm:py-14 md:py-16 xl:py-20">
+		<div class="bleed-full bg-grid absolute inset-0"></div>
+		<div class="relative flex flex-col items-center gap-6 text-center">
+			<h1 class="heading-3 mx-auto max-w-screen-lg sm:heading-2 lg:heading-1">Preonus releases</h1>
+		</div>
+	</div>
+
+	<div class="w-full max-w-screen-xl mx-auto px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+		<!-- 2 Releases side-by-side matching blog card design -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+			{releasesData.map((release) => (
+				<article
+					class="relative border border-astro-gray-500 bg-astro-gray-600 p-6 md:p-8 outline-astro-pink-light transition-transform duration-300 ease-out focus-within:outline hover:scale-[1.03] flex flex-col justify-between"
+					aria-labelledby={release.slug}
+				>
+					<div>
+						<header class="mb-4">
+							<time class="code text-astro-gray-200">
+								{release.date}
+							</time>
+						</header>
+
+						<h3 class="heading-4 md:heading-3 mb-3" id={release.slug}>
+							<a
+								href={`/releases/${release.slug}/`}
+								data-astro-prefetch
+								class="outline-none after:absolute after:inset-0"
+							>
+								{release.title}
+							</a>
+						</h3>
+
+						<p class="text-astro-gray-200">{release.description}</p>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.bg-grid {
+		mask-image: linear-gradient(to bottom, white 0%, white 33%, transparent 90%);
+	}
+</style>

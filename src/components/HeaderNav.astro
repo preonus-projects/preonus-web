@@ -20,14 +20,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
 		<a href={`${base}docs/`} data-astro-prefetch class="link">
 			Documentation
 		</a>
-		<HeaderDropDown
-			label="Guides"
-			items={[
-				{ href: `${base}docs/getting-started/`, label: 'Quickstart', icon: 'open-book', prefetch: true },
-				{ href: `${base}docs/architecture/`, label: 'Build-Time DI', icon: 'layers', prefetch: true },
-				{ href: `${base}docs/graalvm/`, label: 'GraalVM Native Image', icon: 'plug', prefetch: true },
-			]}
-		/>
+		<a href={`${base}guide/`} data-astro-prefetch class="link">
+			Guide
+		</a>
 		<a href={`${base}blog/`} data-astro-prefetch class="link">
 			Blog
 		</a>

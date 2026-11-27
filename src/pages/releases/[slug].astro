@@ -1,0 +1,93 @@
+---
+import Layout from '~/layouts/MainLayout.astro';
+import { releasesData, type ReleaseItem } from '~/data/releases.js';
+
+export async function getStaticPaths() {
+	return releasesData.map((release, index) => ({
+		params: { slug: release.slug },
+		props: {
+			release,
+			// Newer release (Next)
+			nextRelease: index > 0 ? releasesData[index - 1] : undefined,
+			// Older release (Previous)
+			prevRelease: index < releasesData.length - 1 ? releasesData[index + 1] : undefined,
+		},
+	}));
+}
+
+export type Props = {
+	release: ReleaseItem;
+	prevRelease?: ReleaseItem;
+	nextRelease?: ReleaseItem;
+};
+
+const { release, prevRelease, nextRelease } = Astro.props;
+
+const placeholderGradient = 'bg-blue-purple-gradient';
+---
+
+<Layout
+	title={release.title}
+	description={release.description}
+	pageType="article"
+>
+	<div
+		class:list={[
+			'z-blur -mb-56 h-64 w-full md:-mb-52 md:h-64 lg:-mb-80 lg:h-96',
+			placeholderGradient,
+		]}
+	/>
+
+	<div class="grid-container overflow-visible relative mx-auto max-w-screen-lg md:z-10">
+		<div class="mx-auto w-fit max-w-full bg-black py-8 md:px-10 md:py-12 lg:p-12 lg:py-16 xl:p-16 xl:py-20">
+			<header class="mx-auto w-full max-w-prose text-center">
+				<time class="code text-astro-gray-200">
+					{release.date}
+				</time>
+				<h1 class="heading-3 mb-4 mt-2 md:heading-2 sm:mb-5 sm:mt-3">{release.title}</h1>
+			</header>
+			<hr class="-mx-16 my-8 border-astro-gray-500 lg:my-16" />
+			<div class="flex flex-wrap gap-y-12 lg:gap-y-16 max-w-prose mx-auto">
+				<article class="prose w-full">
+					<p class="text-xl text-astro-gray-100 leading-relaxed mb-8">
+						{release.description}
+					</p>
+
+					<div class="mt-8 space-y-4">
+						<Fragment set:html={release.content.replace(/### (.*?)\n/g, '<h3 class="heading-4 text-white mt-6 mb-3">$1</h3>').replace(/## (.*?)\n/g, '<h2 class="heading-3 text-white mt-8 mb-4">$1</h2>').replace(/- \*\*(.*?)\*\*: (.*?)\n/g, '<li class="text-astro-gray-200 mb-2"><strong class="text-white">$1</strong>: $2</li>')} />
+					</div>
+				</article>
+
+				<!-- Prev / Next Navigation -->
+				<hr class="-mx-16 basis-[calc(100%+8rem)] border-astro-gray-500" />
+				<nav aria-label="Release pagination" class="w-full flex justify-between items-center gap-4 pt-4">
+					{prevRelease ? (
+						<a
+							href={`/releases/${prevRelease.slug}/`}
+							data-astro-prefetch
+							class="button button-sm flex items-center gap-2 group text-left"
+						>
+							<span class="text-astro-pink-light group-hover:-translate-x-1 transition-transform">←</span>
+							<span>Previous</span>
+						</a>
+					) : (
+						<div></div>
+					)}
+
+					{nextRelease ? (
+						<a
+							href={`/releases/${nextRelease.slug}/`}
+							data-astro-prefetch
+							class="button button-sm flex items-center gap-2 group text-right ml-auto"
+						>
+							<span>Next</span>
+							<span class="text-astro-pink-light group-hover:translate-x-1 transition-transform">→</span>
+						</a>
+					) : (
+						<div></div>
+					)}
+				</nav>
+			</div>
+		</div>
+	</div>
+</Layout>
