@@ -48,7 +48,7 @@ const image = await resolveCoverImage(post);
 	<div class="mt-6 grid gap-x-16 gap-y-4 md:grid-cols-2">
 		<h3 class="heading-4 md:heading-3" id={post.id}>
 			<a
-				href={isCaseStudy ? `/case-studies/${post.id}/` : `/blog/${post.id}/`}
+				href={`/blog/${post.id}/`}
 				data-astro-prefetch
 				class="outline-none after:absolute after:inset-0"
 			>

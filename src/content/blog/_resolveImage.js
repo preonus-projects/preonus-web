@@ -1,5 +1,5 @@
 const allImages = import.meta.glob(
-	'/src/content/{blog,caseStudies}/_images/**/*.{png,jpg,jpeg,webp,avif,svg}',
+	'/src/content/blog/_images/**/*.{png,jpg,jpeg,webp,avif,svg}',
 );
 
 export async function resolveBlogImage(url) {

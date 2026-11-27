@@ -91,27 +91,11 @@ export const collections = {
 						'This should be pre-optimized as a WebP to ensure good performance.',
 				),
 			lang: z.enum(['en']).default('en').describe('The language of this blog post (optional)'),
+			headerImage: z.string().optional(),
+			coverGradientFrom: z.string().optional(),
+			coverGradientTo: z.string().optional(),
 			related: z.array(z.string()).default([]),
 		}),
-	}),
-	caseStudies: defineCollection({
-		loader: glob({ base: './src/content/caseStudies', pattern: '*.mdx' }),
-		schema: z
-			.object({
-				seo: seoSchema.optional(),
-				title: z.string(),
-				description: z.string(),
-				publishDate: z.coerce.date(),
-				authors: z.array(z.string()),
-				socialImage: z.string().optional(),
-				coverImage: z.string().optional(),
-				lang: z.enum(['en']).default('en'),
-				headerImage: z.string().optional(),
-				coverGradientFrom: z.string(),
-				coverGradientTo: z.string(),
-			})
-			// adding this extra flag to differentiate it in lists
-			.transform((study) => ({ ...study, isCaseStudy: true })),
 	}),
 	integrations: defineCollection({
 		loader: file('./src/content/integrations.json'),
@@ -154,48 +138,5 @@ export const collections = {
 	partials: defineCollection({
 		loader: glob({ base: './src/content/partials', pattern: '*.md' }),
 		schema: z.object({}),
-	}),
-	quotes: defineCollection({
-		loader: glob({ base: './src/content/quotes', pattern: '*.md' }),
-		schema: z.object({
-			author: z.object({
-				handle: z.string(),
-				avatar: z.object({
-					src: z.string(),
-					alt: z.string().optional(),
-				}),
-			}),
-			url: z.url(),
-			published: z.date(),
-		}),
-	}),
-	agencies: defineCollection({
-		loader: glob({ base: './src/content/agencies', pattern: '**/*.md' }),
-		schema: ({ image }) =>
-			z.strictObject({
-				name: z.string(),
-				location: z.string(),
-				url: z.url(),
-				contactLink: z.url().or(z.string().startsWith('mailto:')).optional(),
-				image: image(),
-				imageAlt: z.string(),
-				description: z.string(),
-			}),
-	}),
-	promos: defineCollection({
-		loader: file('./src/content/promos/promos.yml'),
-		schema: ({ image }) =>
-			z.object({
-				href: z.string(),
-				title: z.string(),
-				eyebrow: z.string().optional(),
-				description: z.string(),
-				image: z
-					.object({
-						alt: z.string(),
-						src: image(),
-					})
-					.optional(),
-			}),
 	}),
 };

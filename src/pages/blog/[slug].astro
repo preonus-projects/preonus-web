@@ -3,37 +3,44 @@ import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
 import { format } from 'date-fns';
 import Avatar from '~/components/Avatar.astro';
-import { resolveCoverImage, resolveSocialImage } from '~/content/blog/_resolveImage.js';
+import { resolveBlogImage, resolveCoverImage, resolveSocialImage } from '~/content/blog/_resolveImage.js';
 import { randomFromArray } from '~/helpers/random.js';
 import Layout from '~/layouts/MainLayout.astro';
-import Promo from './_components/Promo.astro';
 import RelatedPosts from './_components/RelatedPosts.astro';
 
 export type Props = {
 	post: CollectionEntry<'blog'>;
+	prevPost?: CollectionEntry<'blog'>;
+	nextPost?: CollectionEntry<'blog'>;
 };
 
 export async function getStaticPaths() {
 	const blog = await getCollection('blog');
+	const sorted = blog.sort(
+		(a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+	);
 
-	return blog.map((post) => ({
+	return sorted.map((post, index) => ({
 		params: { slug: post.id },
-		props: { post },
+		props: {
+			post,
+			// Newer post (Next)
+			nextPost: index > 0 ? sorted[index - 1] : undefined,
+			// Older post (Previous)
+			prevPost: index < sorted.length - 1 ? sorted[index + 1] : undefined,
+		},
 	}));
 }
 
-const { post } = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 
 const { data } = post;
 const { Content } = await render(post);
 
 const coverImage = await resolveCoverImage(post);
+const headerImage = await resolveBlogImage(post.data.headerImage);
 const socialImage = await resolveSocialImage(post);
 const socialImageUrl = socialImage && new URL(socialImage.src, Astro.site);
-
-const authors = await Promise.all(data.authors.map((author) => getEntry('authors', author))).then(
-	(authors) => authors.filter(Boolean) as CollectionEntry<'authors'>[],
-);
 
 const gradients = [
 	'bg-red-pink-gradient',
@@ -54,13 +61,6 @@ const structuredData = {
 	...(socialImageUrl && { thumbnailUrl: socialImageUrl, image: [socialImageUrl] }),
 	datePublished: data.publishDate.toISOString(),
 	potentialAction: [{ '@type': 'ReadAction', target: [Astro.url] }],
-	author: authors.map(({ id, data }) => ({
-		'@type': id === 'astro-team' ? 'Organization' : 'Person',
-		'@id': `https://astro.build/blog/#/author/${id}`,
-		name: data.name,
-		sameAs: data.bluesky || data.twitter || data.mastodon || data.github,
-		image: data.image && new URL(data.image.src, Astro.site),
-	})),
 };
 ---
 
@@ -70,7 +70,12 @@ const structuredData = {
 	pageType="article"
 	image={socialImage && { src: socialImage.src, alt: data.title }}
 >
-	{coverImage ? (
+	{data.coverGradientFrom && data.coverGradientTo ? (
+		<div
+			class="z-blur -mb-64 h-64 w-full opacity-[0.85] lg:-mb-80 lg:h-96"
+			style={`background-image: linear-gradient(120deg,${data.coverGradientFrom} 0%,${data.coverGradientTo} 100%);`}
+		/>
+	) : coverImage ? (
 		<div class="mx-auto w-full max-w-screen-lg md:-mb-10 lg:-mb-12 xl:-mb-16">
 			<Image
 				src={coverImage}
@@ -90,6 +95,17 @@ const structuredData = {
 		/>
 	)}
 
+	{headerImage && (
+		<Image
+			src={headerImage}
+			loading="eager"
+			width={512}
+			densities={[1, 1.5]}
+			alt=""
+			class="mx-auto max-w-full max-h-64 max-w-lg w-full object-contain px-8 py-12 lg:p-0 lg:mb-16 relative md:z-10"
+		/>
+	)}
+
 	<div class="grid-container overflow-visible relative mx-auto max-w-screen-lg md:z-10">
 		<div class="mx-auto w-fit max-w-full bg-black py-8 md:px-10 md:py-12 lg:p-12 lg:py-16 xl:p-16 xl:py-20">
 			<header class="mx-auto w-full max-w-prose text-center">
@@ -97,29 +113,13 @@ const structuredData = {
 					{format(data.publishDate, 'MMMM d, yyyy')}
 				</time>
 				<h1 class="heading-3 mb-4 mt-2 md:heading-2 sm:mb-5 sm:mt-3">{data.title}</h1>
-				<div class="code flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-astro-gray-200 md:gap-y-4">
-					<span>By</span>
-					{authors.map((author) => {
-						return (
-							<div class="flex items-center gap-2">
-								<Avatar name={author.id} lg />
-								<span>{author.data.name}</span>
-							</div>
-						);
-					})}
-				</div>
 			</header>
 			<hr class="-mx-16 my-8 border-astro-gray-500 lg:my-16" />
 			<div class="flex flex-wrap gap-y-12 lg:gap-y-16 max-w-prose">
 				<article class="prose">
 					<Content />
 				</article>
-				<hr class="2xl:hidden -mx-16 basis-[calc(100%+8rem)] border-astro-gray-500" />
-				<div class="w-full 2xl:w-0 2xl:mt-24 flex flex-col 2xl:before:h-full">
-					<div class="2xl:ml-[9rem] 2xl:w-56 2xl:sticky 2xl:bottom-12">
-						<Promo />
-					</div>
-				</div>
+
 				{data.related.length > 0 && (
 					<>
 						<hr class="-mx-16 basis-[calc(100%+8rem)] border-astro-gray-500" />
@@ -131,6 +131,36 @@ const structuredData = {
 						</nav>
 					</>
 				)}
+
+				<!-- Prev / Next Navigation -->
+				<hr class="-mx-16 basis-[calc(100%+8rem)] border-astro-gray-500" />
+				<nav aria-label="Blog pagination" class="w-full flex justify-between items-center gap-4 pt-4">
+					{prevPost ? (
+						<a
+							href={`/blog/${prevPost.id}/`}
+							data-astro-prefetch
+							class="button button-sm flex items-center gap-2 group text-left"
+						>
+							<span class="text-astro-pink-light group-hover:-translate-x-1 transition-transform">←</span>
+							<span>Previous</span>
+						</a>
+					) : (
+						<div></div>
+					)}
+
+					{nextPost ? (
+						<a
+							href={`/blog/${nextPost.id}/`}
+							data-astro-prefetch
+							class="button button-sm flex items-center gap-2 group text-right ml-auto"
+						>
+							<span>Next</span>
+							<span class="text-astro-pink-light group-hover:translate-x-1 transition-transform">→</span>
+						</a>
+					) : (
+						<div></div>
+					)}
+				</nav>
 			</div>
 		</div>
 	</div>

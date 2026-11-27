@@ -8,14 +8,14 @@ interface Props {
 	id: string;
 }
 const { id } = Astro.props;
-const post = (await getEntry('blog', id)) || (await getEntry('caseStudies', id));
+const post = await getEntry('blog', id);
 
 if (!post) {
-	throw new Error(`Could not find blog post or case study with ID \`${JSON.stringify(id)}\`.`);
+	throw new Error(`Could not find blog post with ID \`${JSON.stringify(id)}\`.`);
 }
 
 const image = await resolveCoverImage(post);
-const base = post.collection === 'caseStudies' ? 'case-studies' : 'blog';
+const base = 'blog';
 ---
 
 <Card className="relative outline-astro-pink-light transition-transform duration-300 ease-out focus-within:outline hover:scale-[1.03]">
